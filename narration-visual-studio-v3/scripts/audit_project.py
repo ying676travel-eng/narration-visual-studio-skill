@@ -28,14 +28,25 @@ class Composition(HTMLParser):
     def __init__(self):
         super().__init__()
         self.roots, self.clips, self.assets = [], [], []
+        self.ids, self.duplicate_ids = {}, []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if a.get('id'):
+            element_id = a['id']
+            location = self.getpos()[0]
+            if element_id in self.ids:
+                self.duplicate_ids.append((element_id, self.ids[element_id], location))
+            else:
+                self.ids[element_id] = location
         if 'data-composition-id' in a:
             self.roots.append(a)
         if 'clip' in a.get('class', '').split():
             self.clips.append(a)
         if tag in ('script', 'img', 'video', 'audio', 'source') and a.get('src'):
             self.assets.append(a['src'])
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
 
 
 def audit(project):
@@ -87,6 +98,8 @@ def audit(project):
             errors.append('Cue coverage mismatch: ' + str(sorted(ids ^ covered)))
         source = (project / 'index.html').read_text()
         doc = Composition(); doc.feed(source)
+        for element_id, first_line, repeated_line in doc.duplicate_ids:
+            errors.append(f'Duplicate DOM id "{element_id}" in index.html lines {first_line} and {repeated_line}')
         if len(doc.roots) != 1:
             errors.append('Expected exactly one composition root')
         else:

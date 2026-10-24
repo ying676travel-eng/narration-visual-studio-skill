@@ -28,6 +28,24 @@ class AuditTests(unittest.TestCase):
             self.assertTrue(any('local' in x for x in audit(root)['errors']))
             (root/'frame.md').write_text('```json\n{}\n```')
             with self.assertRaises(ValueError):load_tokens(root/'frame.md')
+    def test_duplicate_dom_ids_report_both_locations(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);self.fixture(root)
+            (root/'index.html').write_text('''<div id="composition-root" data-composition-id="main" data-width="1920" data-height="1080" data-duration="5">
+<section id="scene-one" class="clip" data-start="0" data-duration="5">
+<h1 id="el-one-title">Title</h1><p id="el-one-title">Copy</p>
+</section></div>''')
+            result=audit(root)
+            self.assertEqual(result['status'],'BLOCKED')
+            self.assertTrue(any('Duplicate DOM id "el-one-title"' in x and 'lines 3 and 3' in x for x in result['errors']))
+    def test_unique_ids_and_script_text_do_not_false_positive(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);self.fixture(root)
+            (root/'index.html').write_text('''<div id="composition-root" data-composition-id="main" data-width="1920" data-height="1080" data-duration="5">
+<section id="scene-one" class="clip" data-start="0" data-duration="5"><h1 id="el-one-title">Title</h1>
+<img id="el-one-image" src="data:image/png;base64,AA"/><p id="EL-one-title">Copy</p></section></div>
+<script>const example = '<p id="el-one-title">';</script>''')
+            self.assertEqual(audit(root)['errors'],[])
     def test_unknown_style(self):
         # Keep import lazy: module also loads the input preparation tool.
         from new_project import resolve_style

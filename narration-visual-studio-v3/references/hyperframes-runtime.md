@@ -6,7 +6,7 @@
 
 - 用本 Skill 的 `scripts/new_project.py` 初始化作品，不调用 `hyperframes init`。锁定版 `init --help` 明示它会检查 AI Skills，`--skip-skills` 暂时无效；这与单 Skill 安装目标不符。
 - `index.html` 放一个根节点：唯一的 `data-composition-id`（例如 `main`）、`data-width="1920"`、`data-height="1080"`、与字幕总时长一致的 `data-duration`、`data-fps="25"`。V3 的 `audit_project.py` 会核对尺寸、时长和场景数。
-- 每页用独立、稳定 `id` 的 `section.clip`，写绝对秒数 `data-start` 和本页秒数 `data-duration`。场景须连续覆盖整段字幕；与 `scenes.json` 和原 cue ID 对齐。`data-track-index` 可用于 Studio 时间轴分组，不决定画面层级；前后遮挡由 CSS `z-index` 决定。
+- 每页用独立、稳定 `id="scene-<scene_id>"` 的 `section.clip`，写绝对秒数 `data-start` 和本页秒数 `data-duration`；内部普通元素使用 `id="el-<scene_id>-<名称>"`，全页 DOM ID 唯一。场景须连续覆盖整段字幕；与 `scenes.json` 和原 cue ID 对齐。`data-track-index` 可用于 Studio 时间轴分组，不决定画面层级；前后遮挡由 CSS `z-index` 决定。
 - `class="clip"` 是本项目的布局和检查约定。HyperFrames 依据时间属性管理 clip 的出现区间；不要再用 V2 `data-at`，也不要靠手工 `setTimeout` 推进场景。
 
 ## 一条可任意定位的动画时间线
@@ -35,13 +35,14 @@
 在**已安装的 V3 Skill 目录**运行以下命令，`<作品绝对路径>` 指向用户工作区；先用命令的 `--help` 核对实际参数：
 
 ```bash
-python3 scripts/audit_project.py <作品绝对路径> --out <作品绝对路径>/review/audit.json
-npm run hf -- lint <作品绝对路径> --json
-npm run hf -- check <作品绝对路径> --json --snapshots
+python3 scripts/check_project.py <作品绝对路径> --mode quick
+python3 scripts/check_project.py <作品绝对路径> --mode full
 npm run hf -- snapshot <作品绝对路径> --at 0,2,4
 node scripts/browser_qa.mjs <作品绝对路径>
+# 局部修复期间：node scripts/browser_qa.mjs <作品绝对路径> --scene <scene_id>
+# 或：node scripts/browser_qa.mjs <作品绝对路径> --range 12:20
 ```
 
-`lint` 检查结构，`check` 要真正运行浏览器（结果中的 `browserSkipped` 必须为 `false`），`snapshot` 和 `browser_qa.mjs` 提供真实画面证据。检查每页开头、关键揭示、片尾、边界和反向 seek；脚本通过不能代替逐页视觉检查。单文件 V3 的嵌套 `section.clip` 可能收到 `nested_structure_needs_subcomposition` 建议性警告；若运行、画面与定位均通过，记录警告即可，不为了消除它重构已验收的场景结构。`npm run hf -- doctor --json` 用于核对本地环境，语音、音乐和 Docker 等可选项失败不等于本项目 HTML 流程失败。
+`check_project.py` 把完整的 audit、lint 和 check JSON 保存在作品 `review/checks/`，终端只显示问题摘要；`--mode check` 可在局部修复时做不带快照的浏览器检查。它不会清理 `.hyperframes`，同一作品的并发检查会串行执行；若 CLI 报 EEXIST，查看保存的 stderr 和具体路径后再处理，不反复盲跑。`lint` 检查结构，`check` 要真正运行浏览器（结果中的 `browserSkipped` 必须为 `false`），`snapshot` 和 `browser_qa.mjs` 提供真实画面证据。局部 QA 证据单独放在 `review/partial/`，不能代替最终全量 QA。检查每页开头、关键揭示、片尾、边界和反向 seek；脚本通过不能代替逐页视觉检查。单文件 V3 的嵌套 `section.clip` 可能收到 `nested_structure_needs_subcomposition` 建议性警告；若运行、画面与定位均通过，记录警告即可，不为了消除它重构已验收的场景结构。`npm run hf -- doctor --json` 用于核对本地环境，语音、音乐和 Docker 等可选项失败不等于本项目 HTML 流程失败。
 
 仅用户要求静音 MP4 时，使用 `npm run hf -- render <作品绝对路径> --fps 25 -o <输出绝对路径>`；锁定版 CLI 的 `render --help` 明确接受 25fps。随后用 `scripts/verify_video.py` 与 `ffprobe` 核对 H.264、1920×1080、25fps、无音轨及一帧内的时长误差。V3 的语义分镜、视觉风格和无声约束优先于 HyperFrames 通用创作示例。
