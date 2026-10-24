@@ -1,40 +1,21 @@
-# Agent 安装指南
+# Agent 安装指南 · 只注册一套 Skill
 
-此文档给收到仓库首页链接的编程 Agent。用户只需提供链接；检查、安装与验证由 Agent 执行。不要将私人字幕上传到 GitHub。
+此文档给收到发行仓库首页链接的编程 Agent。用户只需提供链接；下载、依赖安装和验证由 Agent 执行。用户字幕与作品留在本机。
 
-## 识别与位置
+## 安装目标
 
-本仓库只有一套 Agent Skill：`narration-visual-studio-v3/SKILL.md`。同目录内的 `references/`、`scripts/`、`styles/`、`licenses/`、`package.json`、`package-lock.json` 必须一起安装。不要只复制 `SKILL.md`，也不要把仓库根目录当成 Skill 目录。不要复制原 Private 开发仓库。
+本仓库唯一需要注册的 Agent Skill 是 `narration-visual-studio-v3/SKILL.md`。必须把该**完整子目录**一起安装：`references/`、`scripts/`、`styles/`、`licenses/`、`package.json` 和 `package-lock.json` 都在其中。不要只复制 `SKILL.md`，也不要把仓库根目录当作 Skill 目录。
 
-## Codex（已核对）
+1. 检查 Node.js 22+、npm、Python 3 和 Google Chrome；仅用户要导出 MP4 时再检查 FFmpeg/FFprobe。缺失时按当前系统正常安装或说明限制，不要求 API Key。
+2. 按当前 Agent 的**官方 Skill 安装机制**下载并注册 `narration-visual-studio-v3`。对 Codex，优先调用自带 `$skill-installer`，指定仓库 `ying676travel-eng/narration-visual-studio-skill` 与路径 `narration-visual-studio-v3`。默认目标是 `$CODEX_HOME/skills/narration-visual-studio-v3`，未设置 `CODEX_HOME` 时是 `~/.codex/skills/narration-visual-studio-v3`。目标已存在时先检查本地改动，不直接覆盖。
+3. 在已安装的 V3 Skill 目录执行 `npm ci`，取得锁定的 **HyperFrames CLI/runtime 0.8.185、GSAP 3.14.2、Playwright 1.61.1、sharp 0.35.5**。这些是 Node 运行依赖，不会因此注册新的 Agent Skill。Python 基础脚本只使用标准库。
+4. 执行 `npm test`，并用 `npm run hf -- doctor --json` 逐项核对当前流程需要的 Node、Chrome；语音、音乐、Docker 属可选项，不能只看 doctor 总体布尔值。确认七个 `styles/<name>/frame.md`、`upstream/FRAME.md`、`upstream/frame-showcase.html` 都存在。
+5. 确认当前 Agent 能识别 `narration-visual-studio-v3`。Codex 安装后通常在下一轮对话看到 `$narration-visual-studio-v3`；当前对话的 Skill 列表未必立即刷新。报告安装位置、依赖和七套风格检查结果。
 
-1. 检查 `node --version`（>=22）、`npm --version`、`python3 --version`、Chrome；仅用户需要 MP4 时检查 `ffmpeg -version`、`ffprobe -version`。缺失时按系统和权限正常安装或向用户说明。不要索取 API Key。
-2. 优先调用 Codex 自带的 `$skill-installer`，让它从 `ying676travel-eng/narration-visual-studio-skill` 的 `narration-visual-studio-v3` 子目录安装。该安装器支持 GitHub 仓库的 `--repo` + `--path`，默认目标为 `$CODEX_HOME/skills/narration-visual-studio-v3`（未设置 `CODEX_HOME` 时为 `~/.codex/skills/narration-visual-studio-v3`）。如果安装器不可用，可从当前 Public 仓库下载该子目录，完整放入同一目标目录；不要覆盖已有同名目录，先检查并备份。
-3. 在**已安装的 Skill 目录**运行 `npm ci`。不要依赖原项目的 `node_modules`；它不随仓库分发。Node 依赖固定为 GSAP 3.14.2、HyperFrames 0.8.185、Playwright 1.61.1、sharp 0.35.5。
-4. 安装下面的官方 HyperFrames 技术指导。若用户环境限制网络或第三方 Skills 安装，先说明阻碍，不能假称已安装。
-5. 在 Skill 目录执行 `npm test` 和 `npm run hf -- doctor --json`；doctor 要逐项看本地 HTML/浏览器所需条件，不能只看退出码。核对七个 `styles/<name>/frame.md`、`upstream/FRAME.md`、`upstream/frame-showcase.html` 均存在。请在 Codex **下一轮对话**确认 `$narration-visual-studio-v3` 可见并可调用；当前对话的 Skill 列表未必即时刷新。
-6. 向用户报告安装位置、依赖与风格检查结果。收到字幕后，再在用户选定的工作目录新建作品；不要把作品写进已安装 Skill 目录。
+**只注册这一个 Skill。**不要执行 `hyperframes skills update`、`npx skills add heygen-com/hyperframes`，也不要安装 `/hyperframes`、`/hyperframes-cli`、`/hyperframes-registry`、`/media-use`。V3 制作所需的技术约定已经在 [`references/hyperframes-runtime.md`](references/hyperframes-runtime.md) 中；遇到接口疑问，读取已安装 npm 包的 `dist/docs/`，或运行锁定版 `npm run hf -- docs <主题>` / `npm run hf -- <命令> --help`。不调用 `hyperframes init`：0.8.185 的 `init --help` 明示它会检查 Agent Skills，且 `--skip-skills` 暂时无效。新作品用现有 `scripts/new_project.py` 初始化。
 
-官方 Codex 安装器若报告“目标已存在”，不要删除原目录；先检查版本和本地改动，协商更新。若缺少 `SKILL.md`，通常是把仓库首页当作安装路径，应改为上述子目录。若 Node 版本不足，先升级 Node，再重试 `npm ci`。
+## 其他 Agent 与常见问题
 
-## HyperFrames 技术指导
+WorkBuddy、Claude Code、Cursor 等平台的 Skill 目录与发现方式可能不同；先查其官方机制，再安装完整 V3 子目录，不能照搬 Codex 路径。WorkBuddy 的独立新会话与新字幕作品尚待发行者外部验收，本说明不声称已验证兼容。
 
-V3 制作流程原先要求阅读 HyperFrames Core、Animation、Creative 三套技术指导。HyperFrames 0.8.185 的官方安装命令现明确提示：这三个独立 Skill **已退役**，内容整合进 `/hyperframes` 的 `SKILL.md` 与 `references/`。不要把“找不到旧三个名字”误判为缺少能力。
-
-**Codex：**优先用 Codex 自带的 `$skill-installer` 从官方仓库 `heygen-com/hyperframes` 的 `skills/hyperframes` 子目录安装到 `$CODEX_HOME/skills/hyperframes`。核对其中 `SKILL.md` 及 `references/` 可读。若已由 HyperFrames 插件提供同等官方文档，核对内容后可复用。
-
-**其他支持的 Agent：**在用户的**作品工作目录**（不是 V3 Skill 安装目录）执行官方 HyperFrames CLI：
-
-```bash
-node <V3-skill-dir>/node_modules/hyperframes/bin/hyperframes.mjs skills update
-```
-
-该命令会按官方机制安装或更新 HyperFrames 当前核心 Skills（包括 `/hyperframes`），也可能更新工作目录里已有的 HyperFrames Skills。执行前检查目标目录和已有内容；之后确认当前 Agent 能发现 `/hyperframes/SKILL.md` 与相关 `references/`。如无法确定目标 Agent 的发现机制，按其官方说明安装，不猜路径。安装后再读 `/hyperframes` 的技术、动效和视觉参考文档，并核对实际 CLI `--help`。本发行包不复制或重新实现 HyperFrames。
-
-## 其他 Agent
-
-WorkBuddy、Claude Code、Cursor 等若支持 Agent Skills，请先让其检查自身的官方 Skill 发现与安装机制，再将**完整 Skill 子目录**放到该机制要求的位置，并验证 `SKILL.md` 被识别。不要把 Codex 的 `~/.codex/skills` 路径照搬给其他 Agent。HyperFrames CLI 官方支持多种 AI 工具的 Skills 安装，但本项目尚未在 WorkBuddy 的独立新会话中验证；该验收由发行者另行完成。无法确认安装目录或权限时，向用户明确报告，不猜测。
-
-## 使用时的路径
-
-Skill 代码和 Node 依赖位于已安装的 Skill 目录。作品目录位于用户工作区。Agent 可从工作区调用 `<skill-dir>/scripts/new_project.py` 创建作品；运行 HyperFrames、浏览器检查时，在 Skill 目录启动命令并给出作品的绝对路径。作品自身只引用其 `assets/` 下的本地资源，不依赖原 Private 仓库或本机旧样片。
+若提示找不到 `SKILL.md`，核对是否把仓库首页误当作安装路径；正确入口在子目录。若 `npm ci` 失败，先核对 Node 版本和网络。若浏览器检查失败，核对 Chrome 和 CLI 的具体错误。作品应写在用户工作区；从已安装 Skill 目录运行 HyperFrames 检查时，传入作品的绝对路径。不要把用户作品写进 Skill 目录，也不要触碰用户现有的其他 Skills。

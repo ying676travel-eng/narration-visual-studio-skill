@@ -6,7 +6,7 @@
 
 ## 固定依赖与官方指导
 
-在本目录执行 `npm ci`，并按 [`AGENT_INSTALL.md`](AGENT_INSTALL.md#hyperframes-技术指导) 安装官方 `/hyperframes` Skill（包含原 Core、Animation、Creative 指导）。Node.js >=22；Python 3 基础脚本只需标准库；Chrome 用于浏览器验收和渲染；FFmpeg/FFprobe 仅在导出 MP4 时需要。`npm run hf -- doctor --json` 是环境诊断，须阅读逐项结果。`npm test` 运行内置基础测试。
+在本目录执行 `npm ci`；制作时阅读本目录 [`references/hyperframes-runtime.md`](references/hyperframes-runtime.md)。无需另装 HyperFrames Agent Skill。Node.js >=22；Python 3 基础脚本只需标准库；Chrome 用于浏览器验收和渲染；FFmpeg/FFprobe 仅在导出 MP4 时需要。`npm run hf -- doctor --json` 是环境诊断，须阅读逐项结果。`npm test` 运行内置基础测试。
 
 ## 制作与检查
 

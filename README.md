@@ -16,7 +16,7 @@
 
 - **HTML 制作与检查：**Node.js 22+、npm、Python 3、Google Chrome；Node 依赖由 Skill 内的锁文件固定，Agent 运行 `npm ci` 安装。Python 核心脚本只使用标准库。
 - **无声 MP4（可选）：**另需 FFmpeg 与 FFprobe。Chrome 或 FFmpeg 缺失时，由 Agent 按系统条件安装或说明限制。
-- **HyperFrames 技术指导：**必须从 HyperFrames 官方安装 `/hyperframes` Skill（原 Core、Animation、Creative 指导已合并）；步骤见 [Agent 安装指南](AGENT_INSTALL.md#hyperframes-技术指导)。它们不包含在本仓库内。
+- **单 Skill 安装：**只注册 `narration-visual-studio-v3`；HyperFrames CLI 和 GSAP 由 `npm ci` 作为运行依赖安装，制作所需技术约定已收在 V3 内部。无需另装 HyperFrames Agent Skills。
 
 常见问题：如果 Codex 没识别新 Skill，检查安装目标是否为 `~/.codex/skills/narration-visual-studio-v3/SKILL.md`（或 `$CODEX_HOME` 对应路径），再开始新一轮对话；如果 `npm ci` 失败，先核对 Node 版本和网络；如果 Chrome 检查失败，确认已安装 Chrome 并让 Agent 重跑检查。字体中的中文部分使用本机字体回退，跨系统字形可能不同。
 

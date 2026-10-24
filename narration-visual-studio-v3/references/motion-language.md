@@ -6,7 +6,7 @@ Motion should explain something. A line can show a route, a reveal can show an o
 
 Subtitle time is the authority. Give each scene an absolute start and end, then schedule its visual changes at relative points inside that interval. Keep the original cue meaning and time when the style changes.
 
-Every visible state must be computable from the requested time alone. Think of seeking like moving a bookmark to any page: the reader should see the right page immediately, whether they arrived from the beginning, the end, or another page. Do not rely on a viewer having watched earlier frames. Avoid wall-clock timers, random motion, autoplay loops, or standalone tweens. In HyperFrames work, use its paused, seekable timeline contract and follow the installed version's animation rules.
+Every visible state must be computable from the requested time alone. Think of seeking like moving a bookmark to any page: the reader should see the right page immediately, whether they arrived from the beginning, the end, or another page. Do not rely on a viewer having watched earlier frames. Avoid wall-clock timers, random motion, autoplay loops, or standalone tweens. Use the paused, seekable timeline contract in `hyperframes-runtime.md`; no external Agent Skill is required.
 
 For a browser-only illustration, a range slider can set an explicit progress value and derive the full visual state from it. The showcases use this approach: dragging backward restores earlier states, and repeating the same value produces the same frame.
 
