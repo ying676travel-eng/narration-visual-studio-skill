@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartesian · frame studies</title>
+<style>
+:root{--paper:#EDE8E0;--stone:#E2DBD1;--ink:#1A1A1A;--gray:#5A5A5A;--taupe:#8A8178;--rule:#B8B0A4;--serif:'Playfair Display','Songti SC','Noto Serif CJK SC','Source Han Serif SC',serif;--sans:'Inter','PingFang SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif;--mono:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Noto Sans Mono CJK SC',monospace}
+*{box-sizing:border-box}body{margin:0;background:#f5f3ef;color:var(--ink);font-family:var(--sans)}main{width:100%;margin:auto;padding:clamp(28px,2.3vw,44px) clamp(14px,2.5vw,48px) 76px}.intro{max-width:730px;margin-bottom:38px}.eyebrow,.index,.label,.control-label{font:500 12px/1.5 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--taupe)}h1{font:400 clamp(38px,6vw,70px)/.98 var(--serif);margin:10px 0 14px;letter-spacing:-.025em}p{color:var(--gray);line-height:1.65}.study{margin:44px 0}.study-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #d8d2c8;padding-bottom:9px;margin-bottom:14px}.study-head h2{font:400 22px/1.2 var(--serif);margin:0}.study-head p{font-size:13px;margin:0 0 0 auto}.stage{position:relative;aspect-ratio:16/9;container-type:size;overflow:hidden;background:var(--paper);color:var(--ink);isolation:isolate}.stage:before{content:"";position:absolute;inset:5.5%;border:1px solid rgba(184,176,164,.55);pointer-events:none}.stage:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.95%,rgba(184,176,164,.22) 50%,transparent 50.05%);pointer-events:none;opacity:.36}.stage>*{position:absolute;z-index:1}.kicker{font:500 1.35cqw/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}.title{font:400 7.1cqw/1.02 var(--serif);letter-spacing:-.035em}.body{font:400 1.55cqw/1.55 var(--sans);color:var(--gray)}.small{font:400 1.08cqw/1.5 var(--sans);color:var(--gray)}.rule{height:1px;background:var(--rule);transform-origin:left}.ring{fill:none;stroke:var(--rule);stroke-width:1.1}.ring.dash{stroke-dasharray:3 4;opacity:.75}.motion-target{will-change:opacity,transform}.seek-control{display:flex;align-items:center;gap:14px;padding:12px 14px;background:#fffdfa;border:1px solid #ded8ce;border-top:0}.seek-control input{flex:1;accent-color:#8A8178}.seek-control output{min-width:42px;text-align:right;color:var(--taupe);font:12px var(--mono)}button{border:1px solid #d5cec3;background:transparent;padding:5px 9px;color:var(--gray);font:11px var(--mono);cursor:pointer}.stage .guide{stroke:var(--rule);stroke-width:1;fill:none}.stage .node{fill:var(--paper);stroke:var(--taupe);stroke-width:1.2}.stage .focal{fill:var(--stone);stroke:var(--taupe);stroke-width:1.2}
+/* 01: thesis on an open field */
+.s1 .kicker{left:9%;top:12%}.s1 .title{left:9%;top:30%;width:56%;font-size:8.2cqw}.s1 .title em{font-style:italic;color:var(--gray)}.s1 .caption{left:9%;bottom:14%;width:31%}.s1 .sig{right:11%;top:22%;width:34%;height:56%}.s1 .sig .ring{stroke-width:.22cqw}.s1 .sig .ring:nth-child(2){stroke-dasharray:1.2cqw 1cqw}.s1 .sig .cross{stroke:var(--rule);stroke-width:.12cqw}.s1 .foot{right:8%;bottom:10%}
+/* 02: comparison divided by a single rule */
+.s2 .kicker{left:8%;top:11%}.s2 .side{top:31%;width:34%}.s2 .left{left:10%}.s2 .right{right:9%}.s2 .side h3{font:400 4.3cqw/1.05 var(--serif);margin:0 0 2cqw}.s2 .side p{font-size:1.45cqw;max-width:28cqw}.s2 .axis{left:49.8%;top:24%;height:53%;width:.08cqw;transform-origin:top;background:var(--rule)}.s2 .arrow{position:absolute;left:47%;top:49%;font:400 3.2cqw var(--serif);color:var(--taupe)}.s2 .mini{position:absolute;bottom:14%;height:1px;background:var(--rule)}.s2 .left .mini{left:0;width:74%}.s2 .right .mini{left:0;width:96%;background:var(--ink)}
+/* 03: radial system, relationships drawn from a central purpose */
+.s3 .kicker{left:8%;top:10%}.s3 .diagram{left:28%;top:13%;width:48%;height:74%}.s3 .diagram svg{width:100%;height:100%;overflow:visible}.s3 .hubtext{left:43%;top:46%;text-align:center;font:400 2.5cqw var(--serif)}.s3 .sat{font:500 1.4cqw/1.3 var(--sans);color:var(--gray)}.s3 .sat.a{left:33%;top:25%}.s3 .sat.b{right:25%;top:31%}.s3 .sat.c{left:36%;bottom:20%}.s3 .aside{right:8%;bottom:15%;width:20%}
+/* 04: sequence on a single editorial rail */
+.s4 .kicker{left:8%;top:12%}.s4 .headline{left:8%;top:26%;font:400 4.2cqw/1.1 var(--serif)}.s4 .rail{left:10%;top:59%;width:77%;height:1px;background:var(--rule);transform-origin:left}.s4 .step{top:64%;width:22%}.s4 .step.a{left:10%}.s4 .step.b{left:39%}.s4 .step.c{left:68%}.s4 .step strong{display:block;font:400 2.4cqw/1.1 var(--serif);color:var(--ink);margin-bottom:.7cqw}.s4 .step span{font:500 1.05cqw/1.4 var(--sans);color:var(--taupe);letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:650px){main{padding:26px 14px}.study-head p{display:none}.study{margin:28px 0}.intro>p{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="intro"><div class="eyebrow">NARRATION VISUAL STUDIO · STYLE STUDY</div><h1>Cartesian</h1><p>四种讲解关系，四种画面结构。拖动每个时间尺查看揭示过程；画面状态由当前刻度直接计算。</p></header>
+
+  <section class="study"><div class="study-head"><span class="index">01</span><h2>观点 · 留白中的主张</h2><p>从焦点到注释</p></div>
+    <div class="stage s1" data-stage>
+      <div class="kicker motion-target" data-start=".02" data-end=".2" data-dx="-2">FIELD NOTE / 01</div>
+      <div class="title motion-target" data-start=".12" data-end=".44" data-dx="-2">找到<br><em>关系</em></div>
+      <div class="body caption motion-target" data-start=".4" data-end=".62" data-dy="1">复杂的内容，先把变化之间的联系看清。</div>
+      <svg class="sig" viewBox="0 0 420 360" aria-hidden="true"><circle class="ring" cx="210" cy="180" r="148"/><circle class="ring dash" cx="210" cy="180" r="108"/><circle class="ring" cx="210" cy="180" r="52"/><path class="cross" d="M210 14V346M44 180h332"/><path class="cross" d="m93 63 234 234m0-234L93 297"/></svg>
+      <div class="small foot motion-target" data-start=".58" data-end=".76" data-dx="1">A system begins with a relation.</div>
+    </div><div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="78" aria-label="Scrub thesis illustration"><output>78%</output><button type="button" data-home>RESET</button></div>
+  </section>
+
+  <section class="study"><div class="study-head"><span class="index">02</span><h2>对比 · 两种状态</h2><p>由散到合</p></div>
+    <div class="stage s2" data-stage>
+      <div class="kicker motion-target" data-start=".02" data-end=".18">THE SHIFT / 02</div>
+      <div class="side left motion-target" data-start=".1" data-end=".36" data-dx="-2"><h3>各自回应</h3><p>信息分散在不同的动作里，前后缺少可追踪的关系。</p><div class="mini"></div></div>
+      <div class="axis motion-target" data-start=".34" data-end=".68" data-dy="-2"></div><div class="arrow motion-target" data-start=".38" data-end=".56">→</div>
+      <div class="side right motion-target" data-start=".48" data-end=".76" data-dx="2"><h3>形成系统</h3><p>同一个目标，让动作之间出现清楚的顺序与连接。</p><div class="mini"></div></div>
+    </div><div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="78" aria-label="Scrub comparison illustration"><output>78%</output><button type="button" data-home>RESET</button></div>
+  </section>
+
+  <section class="study"><div class="study-head"><span class="index">03</span><h2>系统 · 目标与组成</h2><p>关系图</p></div>
+    <div class="stage s3" data-stage>
+      <div class="kicker motion-target" data-start=".02" data-end=".2">MODEL / 03</div>
+      <div class="diagram"><svg viewBox="0 0 500 420" aria-hidden="true"><path class="guide" pathLength="100" data-draw=".12:.53" d="M250 210 118 95M250 210 388 122M250 210 150 342"/><circle class="node" cx="118" cy="95" r="34"/><circle class="node" cx="388" cy="122" r="34"/><circle class="node" cx="150" cy="342" r="34"/><circle class="focal" cx="250" cy="210" r="62"/><circle class="ring" cx="250" cy="210" r="112"/><circle class="ring dash" cx="250" cy="210" r="170"/></svg></div>
+      <div class="hubtext motion-target" data-start=".4" data-end=".6">目标</div><div class="sat a motion-target" data-start=".2" data-end=".4">观察</div><div class="sat b motion-target" data-start=".28" data-end=".48">判断</div><div class="sat c motion-target" data-start=".36" data-end=".56">行动</div>
+      <div class="body aside motion-target" data-start=".56" data-end=".74">每个环节都围绕同一个目标，彼此有方向。</div>
+    </div><div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="78" aria-label="Scrub system illustration"><output>78%</output><button type="button" data-home>RESET</button></div>
+  </section>
+
+  <section class="study"><div class="study-head"><span class="index">04</span><h2>流程 · 依次推进</h2><p>单一细线轨道</p></div>
+    <div class="stage s4" data-stage>
+      <div class="kicker motion-target" data-start=".02" data-end=".18">SEQUENCE / 04</div><div class="headline motion-target" data-start=".12" data-end=".34">让每一步都回应上一步。</div>
+      <div class="rail motion-target" data-start=".28" data-end=".5"></div>
+      <div class="step a motion-target" data-start=".38" data-end=".56"><strong>观察</strong><span>看见信号</span></div><div class="step b motion-target" data-start=".53" data-end=".7"><strong>判断</strong><span>建立关联</span></div><div class="step c motion-target" data-start=".68" data-end=".85"><strong>行动</strong><span>带来变化</span></div>
+    </div><div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="88" aria-label="Scrub sequence illustration"><output>88%</output><button type="button" data-home>RESET</button></div>
+  </section>
+</main>
+<script>
+for (const control of document.querySelectorAll('.seek-control')) {
+  const stage = control.previousElementSibling;
+  const range = control.querySelector('input');
+  const output = control.querySelector('output');
+  const update = () => {
+    const p = Number(range.value) / 100;
+    output.value = `${range.value}%`;
+    output.textContent = `${range.value}%`;
+    for (const el of stage.querySelectorAll('[data-start]')) {
+      const start = Number(el.dataset.start), end = Number(el.dataset.end);
+      const q = Math.max(0, Math.min(1, (p - start) / (end - start)));
+      const dx = Number(el.dataset.dx || 0) * (1 - q), dy = Number(el.dataset.dy || 0) * (1 - q);
+      el.style.opacity = q;
+      el.style.transform = `translate(${dx}cqw, ${dy}cqw) scale(${.96 + .04*q})`;
+    }
+    for (const path of stage.querySelectorAll('[data-draw]')) {
+      const [a,b] = path.dataset.draw.split(':').map(Number);
+      const q = Math.max(0, Math.min(1, (p-a)/(b-a)));
+      path.style.strokeDasharray = '100';
+      path.style.strokeDashoffset = String(100*(1-q));
+    }
+  };
+  range.addEventListener('input', update);
+  control.querySelector('[data-home]').addEventListener('click', () => { range.value = 0; update(); });
+  update();
+}
+</script>
+</body>
+</html>

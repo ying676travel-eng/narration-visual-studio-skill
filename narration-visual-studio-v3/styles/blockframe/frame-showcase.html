@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockFrame · frame studies</title>
+<style>
+:root{--black:#000;--white:#fff;--off:#FFFDF5;--pink:#FE90E8;--blue:#C0F7FE;--green:#99E885;--yellow:#F7CB46;--cream:#FFDC8B;--sans:'Inter','PingFang SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif;--label:'Space Grotesk','SFMono-Regular',Menlo,Consolas,'Noto Sans Mono CJK SC',monospace}
+*{box-sizing:border-box}body{margin:0;background:#f0efeb;color:#111;font-family:var(--sans)}main{width:100%;margin:auto;padding:clamp(28px,2.3vw,44px) clamp(14px,2.5vw,48px) 76px}.intro{max-width:740px;margin-bottom:38px}.eyebrow,.index,.control-label{font:700 12px/1.5 var(--label);letter-spacing:.13em;text-transform:uppercase;color:#5e5a52}h1{font:900 clamp(38px,6vw,70px)/.95 var(--sans);margin:10px 0 14px;letter-spacing:-.055em;text-transform:uppercase}p{color:#4a4844;line-height:1.65}.study{margin:44px 0}.study-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #d7d3cb;padding-bottom:9px;margin-bottom:14px}.study-head h2{font:800 20px/1.2 var(--sans);margin:0;text-transform:uppercase}.study-head p{font-size:13px;margin:0 0 0 auto}.stage{position:relative;aspect-ratio:16/9;container-type:size;overflow:hidden;background:var(--off);isolation:isolate;color:var(--black)}.stage>*{position:absolute}.pill{display:inline-flex;align-items:center;justify-content:center;border:.34cqw solid var(--black);border-radius:9999px;box-shadow:.42cqw .42cqw 0 var(--black);padding:.85cqw 1.35cqw;background:var(--white);font:700 1.05cqw/1 var(--label);letter-spacing:.1em;text-transform:uppercase}.display{font:900 5cqw/.94 var(--sans);letter-spacing:-.055em;text-transform:uppercase}.body{font:600 1.5cqw/1.35 var(--sans)}.panel{border:.4cqw solid var(--black);box-shadow:.8cqw .8cqw 0 var(--black)}.motion-target{will-change:opacity,transform}.seek-control{display:flex;align-items:center;gap:14px;padding:12px 14px;background:#fffdfa;border:1px solid #ded8ce;border-top:0}.seek-control input{flex:1;accent-color:#F7CB46}.seek-control output{min-width:42px;text-align:right;color:#5e5a52;font:700 12px var(--label)}button{border:1px solid #d5cec3;background:transparent;padding:5px 9px;color:#5f5b54;font:700 11px var(--label);cursor:pointer}
+/* 01: poster statement with a puncture */
+.s1{background:var(--blue)}.s1 .pill{left:7%;top:10%;background:var(--yellow)}.s1 .title{left:8%;top:29%;width:66%;font-size:8.4cqw;line-height:.86}.s1 .title span{display:block}.s1 .sub{left:8%;bottom:13%;width:42%;font-size:1.55cqw}.s1 .star{right:9%;top:20%;width:19%;aspect-ratio:1;background:var(--pink);border:.4cqw solid var(--black);clip-path:polygon(50% 0,61% 33%,92% 9%,77% 42%,100% 50%,77% 59%,92% 91%,61% 67%,50% 100%,39% 67%,8% 91%,23% 59%,0 50%,23% 42%,8% 9%,39% 33%);filter:drop-shadow(.55cqw .55cqw 0 var(--black))}
+/* 02: zigzag process as a physical path */
+.s2{background:var(--cream)}.s2 .pill{left:6%;top:9%;background:var(--green)}.s2 .route{left:12%;top:35%;width:76%;height:38%;overflow:visible}.s2 .route path{fill:none;stroke:var(--black);stroke-width:5;stroke-linejoin:bevel;stroke-linecap:square}.s2 .step{width:20%;height:33%;display:flex;align-items:center;justify-content:center;text-align:center;border:.4cqw solid var(--black);box-shadow:.8cqw .8cqw 0 var(--black);font:900 2.1cqw/1 var(--sans);text-transform:uppercase}.s2 .one{left:10%;top:32%;background:var(--pink)}.s2 .two{left:39%;top:50%;background:var(--blue)}.s2 .three{right:9%;top:31%;background:var(--green)}.s2 .footer{left:7%;bottom:9%;font:700 1.1cqw var(--label);letter-spacing:.12em}
+/* 03: blunt split state, with one giant pivot */
+.s3{background:var(--green)}.s3 .pill{left:7%;top:9%;background:var(--white)}.s3 .left{left:7%;top:30%;width:35%;height:48%;padding:3cqw;background:var(--pink)}.s3 .right{right:7%;top:30%;width:35%;height:48%;padding:3cqw;background:var(--blue)}.s3 .left h3,.s3 .right h3{font:900 3.4cqw/.95 var(--sans);letter-spacing:-.04em;text-transform:uppercase;margin:0 0 1.5cqw}.s3 .left p,.s3 .right p{font-size:1.3cqw;max-width:23cqw}.s3 .pivot{left:45.5%;top:48%;font:900 4cqw/1 var(--sans);text-shadow:.22cqw .22cqw 0 var(--yellow);z-index:2}.s3 .stamp{position:absolute;bottom:1.6cqw;right:1.6cqw;font:700 .95cqw var(--label);letter-spacing:.08em}
+/* 04: inverted closing plate */
+.s4{background:var(--black);color:var(--white)}.s4 .frame{inset:6%;border:.38cqw solid var(--white);box-shadow:1.15cqw 1.15cqw 0 var(--yellow)}.s4 .pill{left:11%;top:13%;background:var(--yellow);color:var(--black);border-color:var(--white);box-shadow:.55cqw .55cqw 0 var(--white)}.s4 .title{left:11%;top:34%;width:73%;font-size:7.2cqw;line-height:.92}.s4 .note{left:11%;bottom:15%;font:700 1.15cqw var(--label);letter-spacing:.14em;color:#dedbd5}.s4 .spark{right:12%;top:15%;color:var(--yellow);font:900 6cqw/1 var(--sans)}
+@media(max-width:650px){main{padding:26px 14px}.study-head p{display:none}.study{margin:28px 0}.intro>p{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="intro"><div class="eyebrow">NARRATION VISUAL STUDIO · STYLE STUDY</div><h1>BlockFrame</h1><p>大胆色块和硬边几何承担解释：海报式主张、折线路径、状态对照、反白收束。拖动时间尺可精确查看任一状态。</p></header>
+
+  <section class="study"><div class="study-head"><span class="index">01</span><h2>主张 · 撕贴海报</h2><p>巨型排版与图形穿刺</p></div>
+    <div class="stage s1" data-stage><div class="pill motion-target" data-start=".02" data-end=".2" data-dx="-2">核心观点 / 01</div><div class="title motion-target" data-start=".12" data-end=".44" data-dx="-2"><span>看见</span><span>联系</span></div><div class="sub body motion-target" data-start=".42" data-end=".62">让图形说明变化发生在哪里。</div><div class="star motion-target" data-start=".34" data-end=".56" data-dx="2" data-dy="-1"></div></div>
+    <div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="80" aria-label="Scrub poster illustration"><output>80%</output><button type="button" data-home>RESET</button></div></section>
+
+  <section class="study"><div class="study-head"><span class="index">02</span><h2>流程 · 折线路径</h2><p>节点依次建立</p></div>
+    <div class="stage s2" data-stage><div class="pill motion-target" data-start=".02" data-end=".2">Process / 02</div><svg class="route" viewBox="0 0 800 300" aria-hidden="true"><path pathLength="100" data-draw=".14:.54" d="M40 45H350V240H760"/></svg><div class="step one motion-target" data-start=".2" data-end=".4">Observe</div><div class="step two motion-target" data-start=".42" data-end=".62">Relate</div><div class="step three motion-target" data-start=".64" data-end=".84">Act</div><div class="footer motion-target" data-start=".76" data-end=".92">A ROUTE WITH A REASON</div></div>
+    <div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="88" aria-label="Scrub route illustration"><output>88%</output><button type="button" data-home>RESET</button></div></section>
+
+  <section class="study"><div class="study-head"><span class="index">03</span><h2>对照 · 状态变化</h2><p>双场域与中心转折</p></div>
+    <div class="stage s3" data-stage><div class="pill motion-target" data-start=".02" data-end=".18">Before / After</div><div class="left panel motion-target" data-start=".1" data-end=".36" data-dx="-2"><h3>Scattered</h3><p>动作没有连接，变化难以追踪。</p><div class="stamp">START</div></div><div class="pivot motion-target" data-start=".36" data-end=".56">→</div><div class="right panel motion-target" data-start=".48" data-end=".76" data-dx="2"><h3>Connected</h3><p>同一条路径，让下一步有迹可循。</p><div class="stamp">RESULT</div></div></div>
+    <div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="80" aria-label="Scrub comparison illustration"><output>80%</output><button type="button" data-home>RESET</button></div></section>
+
+  <section class="study"><div class="study-head"><span class="index">04</span><h2>收束 · 反白终章</h2><p>黑底与黄色硬阴影</p></div>
+    <div class="stage s4" data-stage><div class="frame"></div><div class="pill motion-target" data-start=".02" data-end=".2">CLOSING / 04</div><div class="spark motion-target" data-start=".15" data-end=".34">✳</div><div class="title motion-target" data-start=".18" data-end=".56" data-dx="-2">IDEA<br>TO ACTION</div><div class="note motion-target" data-start=".58" data-end=".76">FROM UNDERSTANDING TO CHANGE</div></div>
+    <div class="seek-control"><span class="control-label">SCRUB</span><input type="range" min="0" max="100" value="84" aria-label="Scrub closing illustration"><output>84%</output><button type="button" data-home>RESET</button></div></section>
+</main>
+<script>
+for (const control of document.querySelectorAll('.seek-control')) {
+  const stage = control.previousElementSibling, range = control.querySelector('input'), output = control.querySelector('output');
+  const update = () => {
+    const p = Number(range.value)/100; output.value = `${range.value}%`; output.textContent = `${range.value}%`;
+    for (const el of stage.querySelectorAll('[data-start]')) {
+      const a=Number(el.dataset.start), b=Number(el.dataset.end), q=Math.max(0,Math.min(1,(p-a)/(b-a)));
+      const dx=Number(el.dataset.dx||0)*(1-q), dy=Number(el.dataset.dy||0)*(1-q);
+      el.style.opacity=q; el.style.transform=`translate(${dx}cqw,${dy}cqw) scale(${.96+.04*q})`;
+    }
+    for (const path of stage.querySelectorAll('[data-draw]')) {
+      const [a,b]=path.dataset.draw.split(':').map(Number), q=Math.max(0,Math.min(1,(p-a)/(b-a)));
+      path.style.strokeDasharray='100'; path.style.strokeDashoffset=String(100*(1-q));
+    }
+  };
+  range.addEventListener('input',update); control.querySelector('[data-home]').addEventListener('click',()=>{range.value=0;update()}); update();
+}
+</script>
+</body>
+</html>
